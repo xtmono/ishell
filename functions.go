@@ -1,9 +1,5 @@
 package ishell
 
-import (
-	"os"
-)
-
 func exitFunc(c *Context) {
 	c.Stop()
 }
@@ -39,9 +35,10 @@ func addDefaultFuncs(s *Shell) {
 }
 
 func interruptFunc(c *Context, count int, line string) {
-	if count >= 2 {
-		c.Println("Interrupted")
-		os.Exit(1)
-	}
-	c.Println("Input Ctrl-c once more to exit")
+	// if count >= 2 {
+	// 	c.Println("Interrupted")
+	// 	os.Exit(1)
+	// }
+	// c.Println("Input Ctrl-c once more to exit")
+	c.Println("<CTRL+C>")
 }
