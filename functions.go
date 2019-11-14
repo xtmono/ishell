@@ -1,5 +1,7 @@
 package ishell
 
+import "os"
+
 func exitFunc(c *Context) {
 	c.Stop()
 }
@@ -41,4 +43,7 @@ func interruptFunc(c *Context, count int, line string) {
 	// }
 	// c.Println("Input Ctrl-c once more to exit")
 	c.Println("<CTRL+C>")
+
+	// TODO: Must disabled when product release
+	os.Exit(1)
 }

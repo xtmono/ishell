@@ -18,9 +18,9 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/xtmono/readline"
 	"github.com/fatih/color"
 	shlex "github.com/flynn-archive/go-shlex"
+	"github.com/xtmono/readline"
 )
 
 const (
@@ -51,6 +51,7 @@ type Shell struct {
 	activeMutex       sync.RWMutex
 	ignoreCase        bool
 	customCompleter   bool
+	customHelper      bool
 	multiChoiceActive bool
 	haltChan          chan struct{}
 	historyFile       string
@@ -157,6 +158,9 @@ func (s *Shell) prepareRun() {
 	}
 	if !s.customCompleter {
 		s.initCompleters()
+	}
+	if !s.customHelper {
+		s.initHelpers()
 	}
 	s.activeMutex.Lock()
 	s.active = true
@@ -372,6 +376,22 @@ func (s *Shell) setCompleter(completer readline.AutoCompleter) {
 func (s *Shell) CustomCompleter(completer readline.AutoCompleter) {
 	s.customCompleter = true
 	s.setCompleter(completer)
+}
+
+func (s *Shell) initHelpers() {
+	s.setHelper(iHelper{cmd: s.rootCmd, disabled: func() bool { return !s.autoHelp }})
+}
+
+func (s *Shell) setHelper(helper readline.ContextHelper) {
+	config := s.reader.scanner.Config.Clone()
+	config.ContextHelp = helper
+	s.reader.scanner.SetConfig(config)
+}
+
+// CustomHelper allows use of custom implementation of readline.ContextHelper.
+func (s *Shell) CustomHelper(helper readline.ContextHelper) {
+	s.customHelper = true
+	s.setHelper(helper)
 }
 
 // AddCmd adds a new command handler.
