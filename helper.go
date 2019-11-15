@@ -6,7 +6,7 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/flynn-archive/go-shlex"
+	"github.com/google/shlex"
 )
 
 type iHelper struct {

@@ -19,7 +19,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/fatih/color"
-	shlex "github.com/flynn-archive/go-shlex"
+	"github.com/google/shlex"
 	"github.com/xtmono/readline"
 )
 
