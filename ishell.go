@@ -250,7 +250,8 @@ func handleInput(s *Shell, line []string) error {
 
 func handleInterrupt(s *Shell, line []string) error {
 	if s.interrupt == nil {
-		return errNoInterruptHandler
+		// return errNoInterruptHandler
+		return nil
 	}
 	c := newContext(s, nil, line)
 	s.interruptCount++

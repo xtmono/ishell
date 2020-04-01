@@ -1,7 +1,5 @@
 package ishell
 
-import "os"
-
 func exitFunc(c *Context) {
 	c.Stop()
 }
@@ -33,9 +31,10 @@ func addDefaultFuncs(s *Shell) {
 		Help: "clear the screen",
 		Func: clearFunc,
 	})
-	s.Interrupt(interruptFunc)
+	// s.Interrupt(interruptFunc)
 }
 
+/*
 func interruptFunc(c *Context, count int, line string) {
 	// if count >= 2 {
 	// 	c.Println("Interrupted")
@@ -47,3 +46,4 @@ func interruptFunc(c *Context, count int, line string) {
 	// TODO: Must disabled when product release
 	os.Exit(1)
 }
+*/
